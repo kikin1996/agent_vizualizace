@@ -1,0 +1,27 @@
+# Local project data and generated output
+projects/
+assets/
+output/
+dist/
+*.blend
+*.blend1
+*.glb
+*.gltf
+*.jpg
+*.jpeg
+*.png
+*.pdf
+*.zip
+# Credentials and machine-local state
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.codex/
+.aws/
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+node_modules/

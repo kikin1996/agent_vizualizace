@@ -4,7 +4,7 @@ Lokální workflow pro modelování exteriéru domu v Blenderu a interaktivní z
 
 ## Co je součástí
 
-- Modelovací skripty: obvodové stěny, střecha, otvory, výplně, okapy, svody a venkovní detaily.
+- Obecný demonstrační model: hmota domu, sedlová střecha a jednoduché fasádní prvky. Klientské modelovací skripty nejsou publikované.
 - Export vyhodnocené geometrie a kalibrované kamery do editoru.
 - Samostatný HTML editor bez knihoven a bez externích síťových požadavků.
 - Posun v terénu, otočení kolem X/Y/Z, měřítko, zobrazení původní fotky.
@@ -20,8 +20,8 @@ Python 3.9+ pro sestavení editoru, Blender 5.2 pro modelování a export, prohl
 ## Lokální postup
 
 1. Připrav pracovní projekt mimo verzované zdrojové soubory a nastav `VIZ_PROJECT_DIR` na jeho absolutní cestu.
-2. V Blenderu spusť postupně `blender/01_zaklad.py` a `blender/02_prvky.py`. Jde o současný parametrický příklad domu 12,90 × 10,40 m, ne obecný převod libovolného stavebního výkresu. Skripty spouštěj jednou v nové scéně; opakované spuštění není idempotentní.
-3. Proveď opravu orientace normál skriptem `blender/finalize_normals.py` a ověř otvory v renderu.
+2. V Blenderu spusť postupně `blender/01_zaklad.py` a `blender/02_prvky.py`. Jde o obecný demonstrační dům 10 × 8 m, ne obecný převod libovolného stavebního výkresu. Skripty spouštěj jednou v nové scéně; opakované spuštění není idempotentní.
+3. Ověř geometrii v renderu. Ukázka používá jednoduché fasádní panely; produkční ostění a stavební otvory je potřeba vymodelovat.
 4. Nastav kameru podle vlastní fotografie. Kalibrace je ruční; aplikace ji automaticky neřeší. Fotografie a projekce jsou v této verzi určené pro poměr stran 3:2.
 5. Spusť `blender/export_editor.py`. Vytvoří `output/model-data.json` ve tvém projektu.
 6. Sestav editor:
@@ -36,8 +36,8 @@ Výsledný HTML soubor obsahuje fotografii i geometrii a lze jej otevřít pří
 
 ## Souřadnice a omezení
 
-Metry; X východ, Y sever, Z nahoru. Eulerovy úhly se skládají v pořadí X, Y, Z. Pole `rotation` je historicky osa Z, `rotationX` a `rotationY` jsou náklony. Starší JSON bez náklonů je podporovaný. Výchozí otočení je −90°. Měřítko 100 % odpovídá základním rozměrům příkladu.
+Metry; X východ, Y sever, Z nahoru. Eulerovy úhly se skládají v pořadí X, Y, Z. Pole `rotation` je historicky osa Z, `rotationX` a `rotationY` jsou náklony. Starší JSON bez náklonů je podporovaný. Výchozí otočení je 0°. Měřítko 100 % odpovídá základním rozměrům příkladu.
 
-Shader v editoru používá zjednodušené materiály a projekční stín. Finální render vzniká v Blenderu. Terén je pracovní rovina `z = -0.625 + 0.072115*y`; pro jiný projekt je nutné přizpůsobit rovinu, základní rozměry i kameru. Zasazení není geodetické zaměření.
+Shader v editoru používá zjednodušené materiály a projekční stín. Finální render vzniká v Blenderu. Terén je pracovní vodorovná rovina nastavená vlastností `ground_z` kořenového objektu; pro jiný projekt je nutné přizpůsobit rovinu, základní rozměry i kameru. Zasazení není geodetické zaměření.
 
 Výsledný HTML obsahuje vloženou fotografii. Nesdílej jej veřejně, pokud fotografie není určená ke zveřejnění. `.gitignore` vylučuje běžné lokální podklady a adresáře výstupů; neposuzuje obsah libovolného HTML souboru.
